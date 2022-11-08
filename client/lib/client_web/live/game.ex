@@ -1,6 +1,21 @@
 defmodule ClientWeb.Live.GameDisplay do
   use ClientWeb, :live_view
 
+  require EEx
+
+  EEx.function_from_file(
+    :def,
+    :render,
+    "lib/client_web/live/game.ios.heex",
+    [:assigns],
+    engine: Phoenix.LiveView.HTMLEngine
+  )
+
+  # @impl true
+  # def render(assigns) do
+  #   # render_native(assigns)
+  # end
+
   @topic "Kalahari"
 
   def mount(_params, _session, socket) do
@@ -25,15 +40,5 @@ defmodule ClientWeb.Live.GameDisplay do
 
   def handle_info(%{event: "make_move", payload: payload}, socket) do
     {:noreply, assign(socket, game: payload)}
-  end
-
-  def render(assigns) do
-    ~H"""
-    	<div class="game-display">
-    		<h1>Angels vs. Demons</h1>
-    		<%= live_component(__MODULE__.Angels, game: assigns.game, id: 1) %>
-    		<%= live_component(__MODULE__.Demons, game: assigns.game, id: 2) %>
-    	</div>
-    """
   end
 end

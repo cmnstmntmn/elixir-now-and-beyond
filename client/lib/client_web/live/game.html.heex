@@ -1,0 +1,5 @@
+<div class="game-display">
+	<h1>Angels vs. Demons</h1>
+	<%= live_component(__MODULE__.Angels, game: assigns.game, id: 1) %>
+	<%= live_component(__MODULE__.Demons, game: assigns.game, id: 2) %>
+</div>
